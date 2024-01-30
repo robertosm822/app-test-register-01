@@ -1,0 +1,22 @@
+<%- include('layout/Header') %>
+
+<%- include('layout/NavBar') %>
+    
+<div class="container container-top">
+    <h1 class="display-5">ENTRAR</h1>
+    <br>
+    <form action="/logar-se" class="validated-form" method="POST" novalidate>
+
+        <div class="mb-3">
+            <label class="form-lable" for="email">Email ID</label>
+            <input class="form-control" type="email" name="email" id="email" required>
+        </div>
+        <div class="mb-3">
+            <label class="form-lable" for="password">Password</label>
+            <input class="form-control" type="password" name="password" id="password" required>
+        </div>
+        <button class="btn btn-secondary" type="submit">Register</button>
+    </form>
+</div>
+    
+<%- include('layout/Footer') %>
