@@ -35,7 +35,7 @@ router.get("/articles-json", async (req, res, next) => {
     try {
 
         const response = await axios.get(process.env.FIREBASE_DATABASE_URL+"/articles/article.json?print=pretty");
-
+        console.log(process.env.FIREBASE_DATABASE_URL+"/articles/article.json?print=pretty");
         res.send(response.data);
     }
     catch (err) {
@@ -69,6 +69,20 @@ router.post('/articles/register', async (req, res)=>{
       restResult = restobjetc.data;
     });
     res.send({'status': true, 'data': restResult});
+})
+//consultar article por ID
+router.post('/article-by-id', async (req, res) => {
+    const {id} = req.body;
+    let restResult='';
+    if(id != null && id != ''){
+        const urlReq = `${process.env.FIREBASE_DATABASE_URL}/articles/article.json?orderBy="id"&equalTo=${id}&print=pretty`;
+        await axios.get(urlReq)
+        .then((restobjetc) => {
+          console.log(restobjetc.data);
+          restResult = restobjetc.data;
+        });
+        res.send({'status': true, 'data': restResult});
+    }
 })
 
 import {
