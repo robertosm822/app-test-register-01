@@ -6,7 +6,10 @@
     
     <div class="container container-top">
         <%= title %> <br>
-        <%= userOnline %> <br>
+        <% if(userOnline != ""){ %> 
+            <h4>Olá <%= userOnline.split('@')[0] %> </h4>  
+        <% } %> 
+        
     </div>
     
 <%- include('layout/Footer') %>
