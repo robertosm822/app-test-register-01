@@ -6,6 +6,7 @@ import path from 'path';
 import fs from 'fs';
 import cors from 'cors';
 
+const cert = '/home/soaresinformatica/.certs/soaresinformatica.dev.br.pem';
 
 const app = express()
 const port = 21127

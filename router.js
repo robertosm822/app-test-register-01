@@ -8,6 +8,7 @@ import * as env from 'dotenv/config';
 import { initializeApp } from "firebase/app";
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 import axios from 'axios';
+import { verifyExistId } from './controllers/UtilsController.js';
 
 
 
@@ -55,19 +56,28 @@ router.post('/articles/register', async (req, res)=>{
         status,
         date_published
     } = req.body;
-    const response = await axios.post(urlReq, {
-        id,
-        title,
-        description,
-        url,
-        destak_image,
-        status,
-        date_published
-    })
-    .then((restobjetc) => {
-      console.log(restobjetc.data);
-      restResult = restobjetc.data;
-    });
+    //verificar se id ja existe
+    let existObjectId = await verifyExistId(id);
+
+    if(parseInt(existObjectId) !== parseInt(id)){
+        const response = await axios.post(urlReq, {
+            id,
+            title,
+            description,
+            url,
+            destak_image,
+            status,
+            date_published
+        })
+        .then((restobjetc) => {
+          console.log(restobjetc.data);
+          restResult = restobjetc.data;
+        });
+    } else {
+        return res.send({'status': false, 'data': "Registro de ID duplicado.  Deve ser único."});
+    }
+    
+    
     res.send({'status': true, 'data': restResult});
 })
 //consultar article por ID
